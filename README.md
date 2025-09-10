@@ -1,53 +1,14 @@
-# Comparative Study of Statistical, Ensemble, and Deep Learning Models for Wind Power Forecasting Using Multivariate Time Series Data
+# Wind Power Forecasting
 
-This project presents a comparative analysis of five machine learning models for wind power prediction using multivariate time series data. It evaluates LSTM, Random Forest, SVR, SARIMA, and XGBoost on real-world turbine data using comprehensive preprocessing, feature engineering, and model tuning.
+This repository contains a comprehensive study of **short-term wind power forecasting** using five models:
 
----
+- **SARIMAX** (statistical model)
+- **Support Vector Regression (SVR)**
+- **Random Forest**
+- **XGBoost**
+- **Long Short-Term Memory (LSTM)**
 
-## Project Summary
-
-Accurate wind power forecasting is critical for integrating renewable energy into modern grids. This project benchmarks traditional and modern ML approaches under the same pipeline to identify the most efficient and reliable method.
-
----
-
-## Models Compared
-
-- **LSTM**: Captures temporal dependencies in meteorological sequences.
-- **Random Forest (RF)**: Robust ensemble method; handles feature interactions well.
-- **Support Vector Regression (SVR)**: Effective with non-linear regression under high-dimensional settings.
-- **SARIMA**: Captures seasonality and trend; interpretable statistical model.
-- **XGBoost**: Gradient boosting model known for high accuracy and scalability.
-
----
-
-## Dataset
-
-- Source: Kaggle – Wind Turbine Power Forecasting
-- Duration: Jan 2018 – Mar 2020 (10-min intervals)
-- Attributes: DateTime, Wind Speed, Direction, Temperature, Pressure, Humidity, Active Power, etc.
-- Size: 118,225 rows × 22 attributes
-
-### Preprocessing & Feature Engineering
-
-- Handled missing and erroneous power values (e.g., negative power set to 0)
-- Normalization and outlier filtering
-- Derived lagged features to improve temporal modeling
-- Train/Val/Test split: 70% / 20% / 10%
-- Models evaluated on last 15 days of the dataset
-
----
-
-## Performance Summary
-
-| Model      | R² Score     | MAE        | RMSE       | MAPE       |
-|------------|--------------|------------|------------|------------|
-| LSTM       | Highest      | Low        | Low        | Low        |
-| RF         | High         | Low        | Low        | Low        |
-| XGBoost    | High         | Low        | Low        | Low        |
-| SVR        | Moderate     | Moderate   | Moderate   | Moderate   |
-| SARIMA     | Low          | High       | High       | High       |
-
-**Winner**: LSTM slightly outperforms others in capturing long-term dependencies, followed by XGBoost and Random Forest.
+The goal is to identify the most accurate and computationally efficient model for daily wind power prediction based on meteorological features.
 
 ---
 
@@ -56,6 +17,7 @@ Accurate wind power forecasting is critical for integrating renewable energy int
 ```
 ├── data/
 │   └── Turbine_Data.csv
+├── results/
 ├── Wind_Power_Prediction.ipynb
 ├── README.md
 └── LICENSE
@@ -63,24 +25,46 @@ Accurate wind power forecasting is critical for integrating renewable energy int
 
 ---
 
-## Key Insights
+## Model Comparison Summary
 
-- **LSTM** excels with temporal patterns and meteorological inputs.
-- **XGBoost and RF** handle non-linearities and anomalies well.
-- **SARIMA**, while interpretable, struggles with complex modern datasets.
-- **Feature engineering and preprocessing** are crucial for model performance.
+We trained and tested all five models on a publicly available wind turbine dataset from Kaggle. The dataset includes Active Power, Wind Speed, Direction, Temperature, Pressure, and Humidity, recorded at 10-minute intervals and aggregated to daily level for day-ahead forecasting.
+
+Key evaluation metrics:
+
+- **R² (Goodness of Fit)**
+- **MAE (Mean Absolute Error)**
+- **RMSE (Root Mean Squared Error)**
+- **MAPE (Mean Absolute Percentage Error)**
+
+### Results: All Models Overlayed
+
+![All Models Overlay](results/all_models_overlay.png)
+
+Random Forest provided the best fit to actual values, with SVR and SARIMAX also showing competitive performance. LSTM struggled due to limited granularity in the daily dataset.
 
 ---
 
-## Model Prediction Visuals
+### Metrics Comparison (Log Scale)
 
-### Actual Power vs Predictions from Various Models
-![Actual vs Predicted Power](results/actual_vs_pred.png)
-*Fig. 1: Predicted vs Actual Wind Power*
+![Metrics Comparison](results/metrics_comparison.png)
 
-### Comparison of Evaluation Metrics for Various Models
-![Comparison of Evaluation Metrics](results/comparison_metrics.png)
-*Fig. 2: Comparison Metrics*
+- **Random Forest** outperformed all other models in accuracy and consistency.
+- **SVR** performed well despite being linear.
+- **LSTM** underperformed due to coarse daily aggregation and insufficient temporal data.
+
+---
+
+## Conclusion
+
+Random Forest proved to be the most reliable choice for short-term wind power forecasting with limited data. While LSTM has potential in high-frequency contexts, it is not suitable for daily aggregated datasets without significant volume.
+
+---
+
+## Future Work
+
+- Use high-frequency (10-min) or hourly data for LSTM/GRU-based models
+- Explore hybrid models combining statistical + ML/DL approaches
+- Add probabilistic forecasting to assess prediction uncertainty
 
 ---
 
