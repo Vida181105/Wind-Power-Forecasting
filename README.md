@@ -38,7 +38,7 @@ Key evaluation metrics:
 
 ### Results: All Models Overlayed
 
-![All Models Overlay](results/all_models_overlay.png)
+![All Models Overlay](results/actual_vs_pred.png)
 
 Random Forest provided the best fit to actual values, with SVR and SARIMAX also showing competitive performance. LSTM struggled due to limited granularity in the daily dataset.
 
@@ -46,7 +46,7 @@ Random Forest provided the best fit to actual values, with SVR and SARIMAX also 
 
 ### Metrics Comparison (Log Scale)
 
-![Metrics Comparison](results/metrics_comparison.png)
+![Metrics Comparison](results/eval_metrics.png)
 
 - **Random Forest** outperformed all other models in accuracy and consistency.
 - **SVR** performed well despite being linear.
